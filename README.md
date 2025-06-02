@@ -32,10 +32,10 @@ Basic wireframes created in Figma for:
 
 ```mermaid
 graph TD
-  A[User Interface<br/>(Web App)] --> B[Front-end]
-  B -->|REST API Calls| C[Back-end API<br/>(Node.js/Express)]
+  A[User Interface<br/>Web App] --> B[Front-end]
+  B -->|REST API Calls| C[Back-end API<br/>Node.js/Express]
   C --> D[(Database<br/>SQLite or PostgreSQL)]
-  C --> E[Future External APIs<br/>(e.g., OpenLibrary)]
+  C --> E[Future External APIs<br/>e.g., OpenLibrary]
 ```
 
 ## 3. Components, Classes, and Database Design
