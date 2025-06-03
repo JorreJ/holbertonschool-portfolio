@@ -1,4 +1,4 @@
-#  Technical Documentation – School Library Management App
+#  Technical Documentation - School Library Management App
 
 ## 1. User Stories and Mockups
 
@@ -7,74 +7,69 @@
 #### Must Have
 - As a school staff member, I want to add books to the database, so that they can be borrowed.
 - As a borrower (student or teacher), I want to borrow a book, so that I can read it and return it later.
-- As a librarian, I want to track which books are currently borrowed, so that I can manage inventory.
+- As a librarian, I want to track which books are currently borrowed or returned, so that I can manage inventory.
+- As a user, I want to search for a specific book by title or author, so that I can find it quickly.
 
 #### Should Have
-- As a staff member, I want to search for a book by title or category, so that I can quickly find it.
-- As a borrower, I want to see my current and past loans, so I can track my reading.
+- As a staff member, I want to categorize books(e.g., novels, documentaries), so that they're easier to roganize and find.
+- As a user, I want to filter books by category or status (available/ Not available), so that I can narrow my search.
+- As a staff member, I want to edit or delete book records, so that I can correct mistakes or remove old data.
 
 #### Could Have
-- As a user, I want to filter books by availability, so I can avoid requesting unavailable books.
-- As a librarian, I want to categorize books, so that the database is easier to navigate.
+- As a user, I want to view some statistics, so that i know what's popular in the library.
 
-#### Won’t Have
+#### Won't Have
 - User authentication or role-based access (in MVP).
 - ISBN auto-fill via external API.
 
 ### Mockups
 
 Basic wireframes created in Figma for:
-- Home Dashboard (book listing)
+- Home Page
 - Add Book form
-- Loan Management
+- Book Detail Page
+- Search and Filter Page
 
 ## 2. System Architecture
 
 ```mermaid
 graph TD
-  A[User Interface<br/>Web App] --> B[Front-end]
-  B -->|REST API Calls| C[Back-end API<br/>Node.js/Express]
+  A[Front-end<br/>(HTML/CSS/JS)] --> B[Django Views and Templates]
+  B --> C[Django Controllers]
   C --> D[(Database<br/>SQLite or PostgreSQL)]
-  C --> E[Future External APIs<br/>e.g., OpenLibrary]
+  C --> E[Optional:<br/>External APIs]
 ```
 
 ## 3. Components, Classes, and Database Design
 
-### Backend Classes / Controllers
+### Django Components
 
-- BookController: createBook(), getBooks(), updateBook(), deleteBook()
-- LoanController: borrowBook(), returnBook(), getLoans(), getLoanHistory()
-- CategoryController: createCategory(), getCategories()
+- Models: Book, User, Loan
+- Views: ListView, DetailView, CreateView, UpdateView
+- Templates: book_list.html, book_detail.html, loan_form.html
 
-### Frontend Components (Planned with basic React/Vite)
+### Models
 
-- `BookList`, `BookForm`, `LoanForm`, `LoanList`, `CategoryList`
+```
+class Book(models.Model):
+  title = models.CharField(max_length=200)
+  author = models.CharField(max_length=200)
+  isbn = models.CharField(max_length=13, unique=True)
+  category = models.CharField(max_length=200)
+  available = models.BooleanField(default=True)
+
+class Loan(models.Model):
+  book = models.ForeignKey(Book, on_delete=models.CASCADE)
+  borrower = models.CharField(max_length=200)
+  borrowed_date = models.DateField(auto_now_add=True)
+  return_date = models.DateField(null=True, blank=True)
 
 ### Relational Database Schema (ER Diagram)
 
 ```mermaid
 erDiagram
-  BOOKS {
-    INT id PK
-    STRING title
-    STRING author
-    INT category_id FK
-    BOOLEAN available
-  }
-  LOANS {
-    INT id PK
-    INT book_id FK
-    STRING borrower_name
-    DATE borrow_date
-    DATE return_date
-  }
-  CATEGORIES {
-    INT id PK
-    STRING name
-  }
-
-  BOOKS ||--o{ LOANS : "has"
-  CATEGORIES ||--o{ BOOKS : "categorized as"
+  Bokk ||--o{ Loan : "has"
+  Loan }o--|| User : borrowed_by
 ```
 
 ## 4. Sequence Diagrams
@@ -83,34 +78,51 @@ erDiagram
 
 ```mermaid
 sequenceDiagram
-  participant UI
+  participant User
   participant Frontend
-  participant API
+  participant DjangoView
   participant DB
 
-  UI->>Frontend: Fill Add Book Form
-  Frontend->>API: POST /books
-  API->>DB: INSERT INTO books
-  DB-->>API: Success
-  API-->>Frontend: Book Created
-  Frontend-->>UI: Confirmation Message
+  User->>Frontend: Fill Add Book Form
+  Frontend->>DjangoView: POST Book Data
+  DjangoView->>DB: Create New Book Record
+  DB-->>DjangoView: Confirmation
+  DjangoView-->>Frontend: Book Created
+  Frontend-->>User: Display Success Message and Update Book List
 ```
 
 ### B. Borrow a Book
 
 ```mermaid
 sequenceDiagram
-  participant UI
+  participant User
   participant Frontend
-  participant API
+  participant DjangoView
   participant DB
 
-  UI->>Frontend: Submit Borrow Request
-  Frontend->>API: POST /loans
-  API->>DB: INSERT loan + UPDATE book.available = false
-  DB-->>API: Success
-  API-->>Frontend: Loan Created
-  Frontend-->>UI: Confirmation
+  User->>Frontend: Submit Borrow Request
+  Frontend->>DjangoView: POST Borrow Request
+  DjangoView->>DB: Create loan entry + Update book availability
+  DB-->>DjangoView: Confirmation
+  DjangoView-->>Frontend: Display success message
+  Frontend-->>User: Show updated status
+```
+
+### C. Search for a Book
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant Frontend
+  participant DjangoView
+  participant Database
+
+  User->>Frontend: Enter Search Query
+  Front-End->>DjangoView: GET /books/?query=...
+  DjangoView->>Database: Query Books Matching Input
+  Database-->>DjangoView: Return List of Matching Books
+  DjangoView-->>Frontend: Return JSON Data (Books)
+  Frontend-->>User: Display Search Results
 ```
 
 ## 5. API Specifications
@@ -121,17 +133,17 @@ sequenceDiagram
 
 ### Internal API Endpoints
 
-| Endpoint            | Method             | Description                   |
-| ------------------- | ------------------ | ----------------------------- |
-| `/books`            | GET / POST         | List / Add books              |
-| `/books/:id`        | GET / PUT / DELETE | View, update or delete a book |
-| `/loans`            | GET / POST         | List loans / Borrow a book    |
-| `/loans/:id/return` | PATCH              | Return a book                 |
-| `/loans/history`    | GET                | Past loans                    |
-| `/categories`       | GET / POST         | Manage categories             |
-
-
-All endpoints use JSON input/output.
+| Endpoint           | Method | Description                                             |
+| ------------------ | ------ | ------------------------------------------------------- |
+| `/api/books/`      | GET    | Retrieve a list of all books or filter by search query. |
+| `/api/books/<id>/` | GET    | Retrieve detailed information about a specific book.    |
+| `/api/books/`      | POST   | Add a new book to the library database.                 |
+| `/api/books/<id>/` | PUT    | Update information about an existing book.              |
+| `/api/books/<id>/` | DELETE | Delete a book from the library database.                |
+| `/api/borrow/`     | POST   | Create a new loan for a book (borrow action).           |
+| `/api/return/`     | POST   | Register the return of a borrowed book.                 |
+| `/api/loans/`      | GET    | Retrieve all loan records (active or complete).         |
+| `/api/loans/<id>/` | GET    | Retrieve detailed information about a specific loan.    |
 
 ## 6. SCM and QA Plans
 
@@ -146,21 +158,20 @@ All endpoints use JSON input/output.
 
 ### Quality Assurance (QA)
 
-| Test Type   | Tool                | Scope                         |
-| ----------- | ------------------- | ----------------------------- |
-| Unit Tests  | Jest / Vitest       | Backend controllers and logic |
-| Integration | Postman / Supertest | API endpoints                 |
-| Manual      | Browser testing     | UI flow checks                |
-
-- Code linting: ESLint + Prettier
-- Pre-deploy checks: Manual tests for core features
+- Testing Types:
+  - Unit Tests (Django built-in testing tools)
+  - Manual UI Testing
+- Tools:
+  - `pytest`, Django TestCase
+  - Browser-based manual test
 
 ## 7. Technical Justifications
 
-| Decision                      | Rationale                                                                                                                    |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **Tech Stack**                | Simple and accessible stack (HTML/CSS/JS + Express + SQLite/PostgreSQL) chosen for quick deployment and ease of maintenance. |
-| **No external APIs in MVP**   | Ensures the app works offline or with limited connectivity. Adds simplicity.                                                 |
-| **Modular backend structure** | Easier testing, debugging and future upgrades.                                                                               |
-| **Relational DB**             | Relationships between books, loans, and categories are structured and ideal for SQL.                                         |
-| **No Auth in MVP**            | Simplifies usage for schools with shared access terminals. May be added later if needed.                                     |
+| Decision                              | Rationale                                                                                                                                        |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tech Stack: Python + Django**       | Chosen for familiarity, rapid development, and excellent admin interface; Django's ORM simplifies database operations.                           |
+| **Future-ready with Python/Django**   | Anticipates future needs such as authentication, multi-school support, and AI integration thanks to Django's scalability and Python's ecosystem. |
+| **No external APIs in MVP**           | Keeps the MVP lightweight, fully offline-capable, and reduces dependency complexity.                                                             |
+| **Modular backend structure**         | Django's app system allows clean separation of concerns, facilitating scalability and easier maintenance.                                        |
+| **Relational DB (SQLite/PostgreSQL)** | Ideal for structured data like books and loans. SQLite used in development; PostgreSQL recommended for production.                               |
+| **No Auth in MVP**                    | Simplifies initial access for shared computers in schools. Authentication can be added in future iterations.                                     |
