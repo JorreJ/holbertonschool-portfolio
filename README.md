@@ -11,7 +11,7 @@
 - As a user, I want to search for a specific book by title or author, so that I can find it quickly.
 
 #### Should Have
-- As a staff member, I want to categorize books(e.g., novels, documentaries), so that they're easier to roganize and find.
+- As a staff member, I want to categorize books(e.g., novels, documentaries), so that they're easier to organize and find.
 - As a user, I want to filter books by category or status (available/ Not available), so that I can narrow my search.
 - As a staff member, I want to edit or delete book records, so that I can correct mistakes or remove old data.
 
@@ -34,7 +34,7 @@ Basic wireframes created in Figma for:
 
 ```mermaid
 graph TD
-  A[Front-end<br/>(HTML/CSS/JS)] --> B[Django Views and Templates]
+  A[Front-end<br/>HTML/CSS/JS] --> B[Django Views and Templates]
   B --> C[Django Controllers]
   C --> D[(Database<br/>SQLite or PostgreSQL)]
   C --> E[Optional:<br/>External APIs]
@@ -63,6 +63,7 @@ class Loan(models.Model):
   borrower = models.CharField(max_length=200)
   borrowed_date = models.DateField(auto_now_add=True)
   return_date = models.DateField(null=True, blank=True)
+```
 
 ### Relational Database Schema (ER Diagram)
 
@@ -118,7 +119,7 @@ sequenceDiagram
   participant Database
 
   User->>Frontend: Enter Search Query
-  Front-End->>DjangoView: GET /books/?query=...
+  Frontend->>DjangoView: GET /books/?query=...
   DjangoView->>Database: Query Books Matching Input
   Database-->>DjangoView: Return List of Matching Books
   DjangoView-->>Frontend: Return JSON Data (Books)
