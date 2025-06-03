@@ -69,8 +69,41 @@ class Loan(models.Model):
 
 ```mermaid
 erDiagram
-  Bokk ||--o{ Loan : "has"
-  Loan }o--|| User : borrowed_by
+  USER ||--o{ LOAN : makes
+  BOOK ||--o{ LOAN : is_borrowed_in
+  BOOK }o--|| CATEGORY : belongs_to
+
+  USER {
+    int id PK
+    string full_name
+    string role         "e.g., élève, enseignant"
+    string contact_info "optional, e.g. classe ou email"
+  }
+
+  BOOK {
+    int id PK
+    string title
+    string author
+    string isbn
+    string publisher     "optional"
+    int category_id FK
+    boolean is_available
+  }
+
+  CATEGORY {
+    int id PK
+    string name
+  }
+
+  LOAN {
+    int id PK
+    int user_id FK
+    int book_id FK
+    date loan_date
+    date due_date
+    date return_date     "nullable"
+    boolean is_returned
+  }
 ```
 
 ## 4. Sequence Diagrams
