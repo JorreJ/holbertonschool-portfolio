@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device_width, initial-scale=1.0">
+        <title>Le Phare</title>
+        <meta name="description" content="Library Management Software">
+        <link rel="icon" type="image/x-icon" href="{% static 'lighthouse_icon_trans.png' %}">
+        <link rel="icon" type="image/png" href="{% static 'lighthouse_icon_trans.png' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <div class="page-container">
+            <header>
+                <div class="header-content">
+                    <a href="{% url 'accueil' %}">
+                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="100" width="100">
+                        <h1>Le Phare</h1>
+                    </a>
+                </div>
+            </header>
+            <main>
+                <div class="returnBookPage">
+                    <h1>Retours</h1>
+                    <form method="Post">
+                        {% csrf_token %}
+                        <label for="identifier"><strong>ISBN</strong> :</label>
+                        <input type="text" name="identifier" id="identifier" required>
+                        <button type="submit" class="popup-button">Valider</button>
+                    </form>
+                </div>
+            </main>
+            <footer>&copy; 2025 Le Phare. Tous droits réservés.</footer>
+        </div>
+    </body>
+</html>

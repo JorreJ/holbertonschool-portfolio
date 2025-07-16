@@ -1,0 +1,45 @@
+{% for book in books %}
+    <a href="{% url 'book_details' book.id %}" class="book_link">
+        <article class="book-card">
+            <h2 class="book-title">{{ book.title }}</h2>
+            <h3 class="book-collection">{{ book.collection }}</h3>
+            <div class="first-line">
+                {% if book.author %}
+                    <p class="book-author"><strong>Auteur/Illustrateur</strong> : {{ book.author }}</p>
+                {% endif %}
+                {% if book.status %}
+                    <p class="book-status"><strong>Statut</strong> : {{ book.status }}</p>
+                {% endif %}
+                {% if book.read_level %}
+                    <p class="book-read_level"><strong>Niveau de lecture</strong> : {{ book.read_level }}</p>
+                {% endif %}
+            </div>
+            <div class="second-line">
+                {% if book.genres.all %}
+                    {% if book.genres.count > 0 %}
+                        <p class="detail-genre">
+                            <strong>Genres</strong> : 
+                            {% for genre in book.genres.all %}
+                                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+                {% if book.categories.all %}
+                    {% if book.categories.count > 0 %}
+                        <p class="detail-category">
+                            <strong>Categories</strong> : 
+                            {% for category in book.categories.all %}
+                                {{ category.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </article>
+    </a>
+{% empty %}
+    <div class="no-result">
+        <p>Aucun livre trouvé</p>
+    </div>
+{% endfor %}

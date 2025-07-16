@@ -1,0 +1,380 @@
+/* Ensure page size and background color */
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #FBF7E4;
+}
+
+/* Stick the footer at bottom of the page */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure that main fills all the space between header and footer */
+main {
+    flex: 1;
+}
+
+/* Ensure a link inherits its parent style */
+a {
+    display: inherit;
+    align-items: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+/* Determine header styles */
+header {
+    background-color: #2C5F79;
+    color: #E9854B;
+    padding: 20px;
+    /*font-family: 'playfair display', 'courier new';*/
+}
+
+/* Determine positions of elements in the header */
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+/* Style of the footer */
+footer {
+    text-align: center;
+}
+
+
+
+/* Style of the input fields */
+input {
+    border: 2px solid #2C5F79;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #2C5F79 inset;
+}
+
+/* Style of the input fields when focused */
+input:focus {
+    border: 2px solid #8EC7DE;
+    box-shadow: 1px 1px 5px #2C5F79;
+    outline: none;
+}
+
+/* Position of the quick-search bar */
+.quick-search {
+    display: block;
+    width: 70%;
+    margin: 50px auto;
+    padding: 8px;
+}
+
+/* Size and position of the input fields (add-form and search-form) */
+.new-info, .search-info {
+    display: block;
+    width: 50%;
+    height: 25px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Size and position of the popup input field (book details page) */
+.popup input {
+    font-size: 1em;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-top: 20px;
+}
+
+/* Size of the input field (return book page) */
+.returnBookPage input {
+    font-size: 1em;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+
+
+/* Display of action buttons */
+#actions, .del-link, .borrow-link, .mod-link, .search-button, .add-button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+/* Display of action buttons (home page) */
+#add-book, #full-search, #return-book {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* Display of the add button and search button (add book page and search book page) */
+.add-button, .search-button {
+    width: fit-content;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px;
+}
+
+/* Display of the drawer button (search book page) */
+.drawer-button {
+    display: block;
+    position: fixed;
+    top: 160px;
+    left: 20px;
+    width: fit-content;
+    text-align: center;
+    font-size: 2em;
+    padding: 10px;
+}
+
+/* Display of action buttons (book details page) */
+.del-link, .mod-link, .borrow-link {
+    width: fit-content;
+    font-size: 1em;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+.mod-link {
+    position: absolute;
+    bottom: 0;
+    left: 47%;
+    right: 53%;
+}
+
+.borrow-link {
+    position: absolute;
+    bottom: 0;
+    left: 13%;
+    right: 87%;
+}
+
+.del-link {
+    position: absolute;
+    bottom: 0;
+    left: 80%;
+    right: 20%;
+}
+
+/* Display of the popup buttons (book details page) */
+.popup-button {
+    width: fit-content;
+    font-size: 1.5em;
+    padding: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+}
+
+
+
+/* Display of the validate button (return book page) */
+.returnBookPage button {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+
+/* Style of the buttons */
+#add-book, #full-search, #return-book, .add-button, .drawer-button, .search-button, .del-link, .borrow-link, .mod-link, .popup-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    border : 2px hidden #2C5F79;
+    border-radius: 10px;
+    background-color: #6B7B8E;
+    color: #FBF7E4;
+}
+
+/* Style of the button when the mouse hover (home page and book details page)*/
+#add-book:hover, #full-search:hover, #return-book:hover, .del-link:hover, .mod-link:hover, .borrow-link:hover, .popup-button:hover {
+    text-decoration: underline;
+    box-shadow: 1px 1px 10px #6B7B8E;
+}
+
+/* Style of the buttons when the mouse hover (add book page and search book page) */
+.add-button:hover, .drawer-button:hover, .search-button:hover {
+    box-shadow: 1px 1px 10px #6B7B8E;
+    text-decoration: underline;
+}
+
+
+
+/* Style of the table (add-form and search-form) */
+table {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* Hide the drawer-toggle */
+#drawer-toggle {
+    display: none;
+}
+
+/* Style and position of the drawer menu */
+.drawer-menu {
+    position: fixed;
+    top: 0;
+    left: -950px;
+    width: 50%;
+    height: 100%;
+    background-color: #8EC7DE;
+    color: #2C5F79;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+/* Make the drawer-menu to appear */
+#drawer-toggle:checked + .drawer-button + .drawer-menu {
+    left: 0;
+}
+
+/* Style of the close-menu button (drawer-menu on search book page) */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #FBF7E4;
+}
+
+/* Style of the close-menu button when the mouse hover (drawer-menu on search book page) */
+#close-menu:hover {
+    color: #ff0000;
+}
+
+
+/* Style of the book-index section (search book page) */
+#books-list {
+    text-align: center;
+}
+
+/* Style of the book cards (search book page) */
+.book-card {
+    text-align: center;
+    border: 2px solid #FBF7E4;
+    border-radius: 20px;
+    width: 50%;
+    margin: 50px auto;
+    background-color: #EAF4F7;
+    color: #2C5F79;
+    box-shadow: inset 1px 1px 10px #8EC7DE, 1px 1px 3px 1px #2C5F79;
+}
+
+/* Style of the book cards when the mouse hover (search book page) */
+.book-card:hover {
+    text-decoration: underline;
+    box-shadow: 1px 1px 10px #6B7B8E;
+}
+
+/* Separate first and second line in book cards (search book page) */
+.first-line, .second-line {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Separate elements in lines in book cards (search book page) */
+.book-author, .book-status, .book-read_level, .book-genre, .book-category {
+    display:inline;
+    padding: 20px;
+}
+
+/* Display of "no result found" message (search book page) */
+.no-result {
+    display: flex;
+    font-size: 2em;
+}
+
+.no-result p {
+    position: absolute;
+    top: 50%;
+    left: 42%;
+}
+
+
+
+/* Style of the main (book details page) */
+.book-page {
+    text-align: center;
+    color: #2C5F79;
+    font-size: 20px;
+}
+
+/* Style of details elements */
+.book-details {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.detail-status, .detail-summary {
+    display: block;
+}
+
+.detail-location, .detail-cote, .detail-author, .detail-edition, .detail-genre, .detail-category {
+    display: inline;
+}
+
+.detail-location, .detail-author, .detail-genre {
+    padding-right: 20px;
+}
+
+.detail-cote, .detail-edition, .detail-category {
+    padding-left: 20px;
+}
+
+/* Defines a border for summary element (book details page) */
+.detail-summary {
+    border: 1px solid #2C5F79;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+}
+
+/* Style of the popup */
+.popup {
+    position: fixed;
+    height: 150px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #8EC7DE;
+    padding: 50px;
+    border: 2px solid #FBF7E4;
+    border-radius: 40px;
+    box-shadow: 1px 1px 3px 1px #2C5F79, inset 1px 1px 10px #EAF4F7;
+    z-index: 1000;
+}
+
+
+
+/* Style for the return book page */
+.returnBookPage {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    color: #2C5F79;
+    font-size: 1.5em;
+}
+
+
+
+
+/* Hide all class="hidden" elements */
+.hidden {
+    display: none;
+}
