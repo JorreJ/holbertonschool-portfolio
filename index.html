@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Le Phare — Free School Library Manager</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #003366; color: #fff; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+    header nav a { color: #fff; margin-left: 20px; text-decoration: none; }
+    .cover {
+      background: url('cover-image.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px;
+    }
+    .cover h1 { font-size: 3em; margin: 0; }
+    .cover p { font-size: 1.2em; margin: 20px 0; }
+    .cover a.button {
+      background: #0077cc;
+      color: #fff;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+    }
+    main { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    section { margin-bottom: 60px; }
+    .features { display: flex; flex-wrap: wrap; gap: 30px; }
+    .feature {
+      flex: 1;
+      min-width: 250px;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .feature img { width: 100%; height: auto; border-radius: 4px; }
+    footer {
+      background: #f0f0f0;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+    .social-links a { margin: 0 10px; }
+  </style>
+</head>
+
+<body>
+  <!-- Header with nav -->
+  <header>
+    <div><strong>Le Phare</strong></div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- Intro section -->
+  <section class="cover">
+    <h1>Le Phare</h1>
+    <p>A free library manager for small schools — simple, clear, and cost-free.</p>
+    <a class="button disabled">Deployment Coming Soon</a>
+  </section>
+
+  <!-- Features section -->
+  <main>
+    <section id="features">
+      <h2>Key Features</h2>
+      <div class="features">
+        <div class="feature">
+          <img src="./index_images/Le Phare - Add Book Page.png" alt="Book Registration">
+          <h3>Easy Book Registration</h3>
+          <p>Register books in seconds with title, author, and ISBN — no complex setup needed.</p>
+        </div>
+        <div class="feature">
+          <img src="./index_images/Le Phare - Loans Page.png" alt="Loan Management">
+          <h3>Loan Tracking</h3>
+          <p>Track loans and returns easily. Status updates help teachers and students know what's available.</p>
+        </div>
+        <div class="feature">
+          <img src="./index_images/Le Phare - Index.png" alt="Simple Search">
+          <h3>Simple Search</h3>
+          <p>Find books quickly with a flexible search by title, author, or other fields.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About section -->
+    <section id="about">
+      <h2>About the Project</h2>
+      <p>
+        Le Phare was inspired by my own experience during my civic service, helping manage a school library with no digital system.
+        I wanted to create a simple tool to make library management accessible for small schools, without technical barriers or extra costs.
+        <br>
+        This project is part of my Portfolio Project at Holberton School.
+      </p>
+      <p>
+        Connect with me:
+        <span class="social-links">
+          <a href="https://www.linkedin.com/in/jade-jorré/">LinkedIn</a> |
+          <a href="https://github.com/JorreJ/">GitHub</a> |
+        </span>
+      </p>
+      <p>
+        👉 <a href="https://github.com/JorreJ/holbertonschool-portfolio" target="_blank">View the Project on GitHub</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Jade Jorré — All rights reserved.
+  </footer>
+</body>
+</html>
