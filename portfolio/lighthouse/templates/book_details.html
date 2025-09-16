@@ -104,7 +104,7 @@
                     <a href="javascript:void(0);" id="openBorrowPopup" class="borrow-link"
                         data-url="{% url 'borrow_book' book.id %}"
                         data-csrf="{{ csrf_token }}">Emprunter</a>
-                    <a href="{% url 'delete_book' book.id %}" class="mod-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Modifier</a>
+                    <a href="{% url 'book_update' book.id %}" class="mod-link">Modifier</a>
                     <a href="{% url 'delete_book' book.id %}" class="del-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Supprimer</a>
                 </div>
             </main>

@@ -4,6 +4,7 @@ from django.utils.html import escape
 from django.http import JsonResponse
 from django.contrib import messages
 from .models import Book, Borrowing
+from .forms import BookForm
 from django.utils import timezone
 
 # Create your views here.
@@ -101,5 +102,16 @@ def borrow_book(request, book_id):
                 borrow_date=timezone.now()
             )
             
-            return JsonResponse({'message': f'Livre emprunté par {borrower_name}.'})
+            return JsonResponse({'message': f'Livre emprunté par {Borrowing.borrower}.'})
     return JsonResponse({'message': 'Erreur lors de l\'emprunt.'}, status=400)
+
+def book_update(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book_details', book_id=book.id)
+    else:
+        form = BookForm(instance=book)
+    return render(request, "book_update.html", {"form": form, "book": book})

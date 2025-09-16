@@ -41,6 +41,13 @@ header {
     align-items: center;
 }
 
+/* Determine positions of nav elements */
+nav a {
+    display: inline;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
 /* Style of the footer */
 footer {
     text-align: center;
