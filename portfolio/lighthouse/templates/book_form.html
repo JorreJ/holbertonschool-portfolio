@@ -1,0 +1,27 @@
+{% load static %}
+<div class="new-book">
+    <table>
+        <tr>
+            <td id="left-cell">
+                <label>Titre :</label> {{ form.title }}
+                <label>Auteur :</label> {{ form.author }}
+                <label>ISBN :</label> {{ form.ISBN }}
+                <label>Parution :</label> {{ form.published }}
+                <label>Localisation :</label> {{ form.location }}
+                <label>Satut :</label> {{ form.status }}
+            </td>
+            <td id="center-cell">
+                <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="200" width="200">
+                <button type="submit" class="add-button">{{ button_text|default:"Enregistrer" }}</button>
+            </td>
+            <td id="right-cell">
+                <label>Cote :</label> {{ form.cote }}
+                <label>Collection :</label> {{ form.collection }}
+                <label>Niveau de lecture :</label> {{ form.read_level }}
+                <label>Résumé :</label> {{ form.summary }}
+                <label>Langue :</label> {{ form.language }}
+                <label>Exemplaire :</label> {{ form.copy }}
+            </td>
+        </tr>
+    </table>
+</div>

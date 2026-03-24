@@ -9,7 +9,7 @@ class BookForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'update-info'}),
             'author': forms.TextInput(attrs={'class': 'update-info'}),
             'ISBN': forms.TextInput(attrs={'class': 'update-info'}),
-            #'published': 
+            'published': forms.NumberInput(attrs={'class': 'update-info'}),
             'edition': forms.TextInput(attrs={'class': 'update-info'}),
             #'category':
             'location': forms.TextInput(attrs={'class': 'update-info'}),
@@ -19,6 +19,6 @@ class BookForm(forms.ModelForm):
             'read_level': forms.TextInput(attrs={'class': 'update-info'}),
             'summary': forms.TextInput(attrs={'class': 'update-info'}),
             'language': forms.TextInput(attrs={'class': 'update-info'}),
-            #'copy':
+            'copy': forms.NumberInput(attrs={'class': 'update-info'}),
             #'genre':
         }

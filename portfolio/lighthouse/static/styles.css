@@ -77,8 +77,8 @@ input:focus {
     padding: 8px;
 }
 
-/* Size and position of the input fields (add-form and search-form) */
-.new-info, .search-info {
+/* Size and position of the input fields (add-form, search-form, update-form) */
+.new-info, .search-info, .update-info {
     display: block;
     width: 50%;
     height: 25px;
@@ -107,7 +107,7 @@ input:focus {
 
 
 /* Display of action buttons */
-#actions, .del-link, .borrow-link, .mod-link, .search-button, .add-button {
+#actions, .del-link, .borrow-link, .mod-link, .search-button, .add-button, .update-button {
     display: flex;
     justify-content: center;
     margin: auto;
@@ -119,8 +119,8 @@ input:focus {
     margin-right: 15px;
 }
 
-/* Display of the add button and search button (add book page and search book page) */
-.add-button, .search-button {
+/* Display of the add button, search button and update button (add book page, search book page, update book page) */
+.add-button, .search-button, .update-button {
     width: fit-content;
     text-align: center;
     font-size: 2em;
@@ -190,7 +190,7 @@ input:focus {
 
 
 /* Style of the buttons */
-#add-book, #full-search, #return-book, .add-button, .drawer-button, .search-button, .del-link, .borrow-link, .mod-link, .popup-button {
+#add-book, #full-search, #return-book, .add-button, .drawer-button, .search-button, .update-button, .del-link, .borrow-link, .mod-link, .popup-button {
     padding-left: 10px;
     padding-right: 10px;
     border : 2px hidden #2C5F79;
@@ -205,15 +205,15 @@ input:focus {
     box-shadow: 1px 1px 10px #6B7B8E;
 }
 
-/* Style of the buttons when the mouse hover (add book page and search book page) */
-.add-button:hover, .drawer-button:hover, .search-button:hover {
+/* Style of the buttons when the mouse hover (add book page, search book page, update book page) */
+.add-button:hover, .drawer-button:hover, .search-button:hover, .update-button:hover {
     box-shadow: 1px 1px 10px #6B7B8E;
     text-decoration: underline;
 }
 
 
 
-/* Style of the table (add-form and search-form) */
+/* Style of the table (add-form, search-form, update-form) */
 table {
     width: 100%;
     margin-top: 50px;
@@ -311,7 +311,7 @@ table {
 
 
 /* Style of the main (book details page) */
-.book-page {
+.book-page, .update-page {
     text-align: center;
     color: #2C5F79;
     font-size: 20px;
