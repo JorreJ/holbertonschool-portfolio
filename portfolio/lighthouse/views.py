@@ -31,7 +31,7 @@ def add_book(request):
             copy = None
 
         Book.objects.create(title=title, author=author, ISBN=ISBN, published=published, location=location, status=status,cote=cote, collection=collection, read_level=read_level, summary=summary, language=language, copy=copy)
-        messages.success(request, f'"{escape(title)}" a bien été enregistré.')
+        messages.success(request, f'"{title}" a bien été enregistré.')
         return render(request, 'add_book.html', {'clear_form': True})
     return render(request, 'add_book.html')
 
@@ -87,6 +87,10 @@ def return_book(request):
         if borrowing:
             borrowing.return_date = timezone.now()
             borrowing.save()
+
+            book = borrowing.book
+            book.status = 'Disponible'
+            book.save()
     return render(request, 'return_book.html')
 
 def borrow_book(request, book_id):
@@ -95,14 +99,19 @@ def borrow_book(request, book_id):
         borrower_name = data.get('borrower')
         book = get_object_or_404(Book, pk=book_id)
 
+        if book.status == "Emprunté":
+            return JsonResponse({'message': 'Ce livre est indisponible pour le moment'}, status=400)
+
         if borrower_name:
             Borrowing.objects.create(
                 borrower=borrower_name,
                 book=book,
                 borrow_date=timezone.now()
             )
+            book.status = "Emprunté"
+            book.save()
             
-            return JsonResponse({'message': f'Livre emprunté par {Borrowing.borrower}.'})
+            return JsonResponse({'message': f'Livre emprunté par {borrower_name}.'})
     return JsonResponse({'message': 'Erreur lors de l\'emprunt.'}, status=400)
 
 def book_update(request, book_id):
