@@ -1,6 +1,12 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
 <h1>Modifier : {{ book.title }}</h1>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Enregistrer</button>
+    <button type="submit" class="update-button">Enregistrer</button>
 </form>
+{% endblock %}

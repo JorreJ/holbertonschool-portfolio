@@ -1,54 +1,24 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device_width, initial-scale=1.0">
-        <title>Le Phare</title>
-        <meta name="description" content="Library Management Software">
-        <link rel="icon" type="image/x-icon" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="icon" type="image/png" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        <div class="page-container">
-            <header>
-                <div class="header-content">
-                    <a href="{% url 'accueil' %}">
-                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="100" width="100">
-                        <h1>Le Phare</h1>
-                    </a>
-                </div>
-                <div class="nav-bar">
-                    <nav>
-                        <a href="/">Accueil</a>
-                        <a href="books/">Catalogue</a>
-                        <a href="books/add/">Ajouter un livre</a>
-                        <a href="books/return/">Rendre un livre</a>
-                    </nav>
-                </div>
-            </header>
-            <main>
-                <input type="search" class="quick-search" placeholder="Recherche rapide">
-                <section id="actions">
-                    <a href="{% url 'add_book' %}">
-                        <div id="add-book">
-                            <h1>Ajouter un livre</h1>
-                        </div>
-                    </a>
-                    <a href="{% url 'search' %}">
-                        <div id="full-search">
-                            <h1>Catalogue</h1>
-                        </div>
-                    </a>
-                    <a href="{% url 'return_book' %}">
-                        <div id="return-book">
-                            <h1>Rendre un livre</h1>
-                        </div>
-                    </a>
-                </section>
-            </main>
-            <footer>&copy; 2025 Le Phare. Tous droits réservés.</footer>
+
+{% block content %}
+<input type="search" class="quick-search" placeholder="Recherche rapide">
+<section id="actions">
+    <a href="{% url 'add_book' %}">
+        <div id="add-book">
+            <h1>Ajouter un livre</h1>
         </div>
-    </body>
-</html>
+    </a>
+    <a href="{% url 'search' %}">
+        <div id="full-search">
+            <h1>Catalogue</h1>
+        </div>
+    </a>
+    <a href="{% url 'return_book' %}">
+        <div id="return-book">
+            <h1>Rendre un livre</h1>
+        </div>
+    </a>
+</section>
+{% endblock %}

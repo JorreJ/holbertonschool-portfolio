@@ -1,115 +1,96 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device_width, initial-scale=1.0">
-        <title>Le Phare</title>
-        <meta name="description" content="Library Management Software">
-        <link rel="icon" type="image/x-icon" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="icon" type="image/png" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        <div class="page-container">
-            <header id="site-header">
-                <div class="header-content">
-                    <a href="{% url 'accueil' %}">
-                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="100" width="100">
-                        <h1>Le Phare</h1>
-                    </a>
-                </div>
-            </header>
-            <main>
-                <div id="bookDetailsPage" class="book-page">
-                    <h1>{{ book.title }}</h1>
-                    <h3>{{ book.collection }}</h3>
-                    <table class="book-details">
-                        <tr>
-                            <td class="status-info">
-                                {% if borrowing %}
-                                    <p class="detail-status"><strong>Emprunté par</strong> : {{ borrowing.borrower }}</p>
-                                {% else %}
-                                    <p class="detail-status"><strong>Disponible</strong></p>
-                                {% endif %}
-                                {% if book.location %}
-                                <p class="detail-location"><strong>Localisation</strong> : {{ book.location }}</p>
-                                {% endif %}
-                                {% if book.cote %}
-                                <p class="detail-cote"><strong>Cote</strong> : {{ book.cote }}</p>
-                                {% endif %}
-                            </td>
-                            <td class="general-info">
-                                {% if book.author %}
-                                <p class="detail-author"><strong>Auteur/Illustrateur</strong> : {{ book.author }}</p>
-                                {% endif %}
-                                {% if book.edition %}
-                                <p class="detail-edition"><strong>Edition</strong> : {{ book.edition }}</p>
-                                {% endif %}
-                                {% if book.summary %}
-                                <p class="detail-summary"><strong>Résumé</strong> : {{ book.summary }}</p>
-                                {% endif %}
-                                {% if book.genres.all %}
-                                    {% if book.genres.count > 0 %}
-                                    <p class="detail-genre">
-                                        <strong>Genres</strong> : 
-                                        {% for genre in book.genres.all %}
-                                            {{ genre.name }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </p>
-                                    {% endif %}
-                                {% endif %}
-                                {% if book.categories.all %}
-                                    {% if book.categories.count > 0 %}
-                                    <p class="detail-category">
-                                        <strong>Categories</strong> : 
-                                        {% for category in book.categories.all %}
-                                            {{ category.name }}{% if not forloop.last %}, {% endif %}
-                                        {% endfor %}
-                                    </p>
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-                            <td class="technical-info">
-                                {% if book.ISBN %}
-                                <p class="detail-ISBN"><strong>ISBN</strong> : {{ book.ISBN }}</p>
-                                {% endif %}
-                                {% if book.copy %}
-                                <p class="detail-copy"><strong>Nombre d'exemplaires</strong> : {{ book.copy }}</p>
-                                {% endif %}
-                                {% if book.published %}
-                                <p class="detail-published"><strong>Publié en</strong> : {{ book.published }}</p>
-                                {% endif %}
-                                {% if book.read_level %}
-                                <p class="detail-read_level"><strong>Recommandé pour</strong> : {{ book.read_level }}</p>
-                                {% endif %}
-                                {% if book.language %}
-                                <p class="detail-language"><strong>Langue</strong> : {{ book.language }}</p>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                    <div id="borrowPopup" class="popup hidden">
-                        <form id="borrow-form" method="POST">
-                            <div class="first-line">
-                                <label for="borrower"><strong>Emprunteur</strong> :</label>
-                                <input type="text" name="borrower" id="borrower" required>
-                            </div>
-                            <div class="second-line">
-                                <button type="submit" class="popup-button">Valider</button>
-                                <button type="button" id="cancel-button" class="popup-button">Annuler</button>
-                            </div>
-                        </form>
-                    </div>
-                    <a href="javascript:void(0);" id="openBorrowPopup" class="borrow-link"
-                        data-url="{% url 'borrow_book' book.id %}"
-                        data-csrf="{{ csrf_token }}">Emprunter</a>
-                    <a href="{% url 'book_update' book.id %}" class="mod-link">Modifier</a>
-                    <a href="{% url 'delete_book' book.id %}" class="del-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Supprimer</a>
-                </div>
-            </main>
-            <footer>&copy; 2025 Le Phare. Tous droits réservés.</footer>
-            <script src="{% static 'scripts.js' %}" defer></script>
-        </div>
-    </body>
-</html>
+
+{% block content %}
+<div id="bookDetailsPage" class="book-page">
+    <h1>{{ book.title }}</h1>
+    <h3>{{ book.collection }}</h3>
+    <table class="book-details">
+        <tr>
+            <td class="status-info">
+                {% if borrowing %}
+                    <p class="detail-status"><strong>Emprunté par</strong> : {{ borrowing.borrower }}</p>
+                {% else %}
+                    <p class="detail-status"><strong>Disponible</strong></p>
+                {% endif %}
+                {% if book.location %}
+                <p class="detail-location"><strong>Localisation</strong> : {{ book.location }}</p>
+                {% endif %}
+                {% if book.cote %}
+                <p class="detail-cote"><strong>Cote</strong> : {{ book.cote }}</p>
+                {% endif %}
+            </td>
+            <td class="general-info">
+                {% if book.author %}
+                <p class="detail-author"><strong>Auteur/Illustrateur</strong> : {{ book.author }}</p>
+                {% endif %}
+                {% if book.edition %}
+                <p class="detail-edition"><strong>Edition</strong> : {{ book.edition }}</p>
+                {% endif %}
+                {% if book.summary %}
+                <p class="detail-summary"><strong>Résumé</strong> : {{ book.summary }}</p>
+                {% endif %}
+                {% if book.genres.all %}
+                    {% if book.genres.count > 0 %}
+                    <p class="detail-genre">
+                        <strong>Genres</strong> : 
+                        {% for genre in book.genres.all %}
+                            {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                {% endif %}
+                {% if book.categories.all %}
+                    {% if book.categories.count > 0 %}
+                    <p class="detail-category">
+                        <strong>Categories</strong> : 
+                        {% for category in book.categories.all %}
+                            {{ category.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td class="technical-info">
+                {% if book.ISBN %}
+                <p class="detail-ISBN"><strong>ISBN</strong> : {{ book.ISBN }}</p>
+                {% endif %}
+                {% if book.copy %}
+                <p class="detail-copy"><strong>Nombre d'exemplaires</strong> : {{ book.copy }}</p>
+                {% endif %}
+                {% if book.published %}
+                <p class="detail-published"><strong>Publié en</strong> : {{ book.published }}</p>
+                {% endif %}
+                {% if book.read_level %}
+                <p class="detail-read_level"><strong>Recommandé pour</strong> : {{ book.read_level }}</p>
+                {% endif %}
+                {% if book.language %}
+                <p class="detail-language"><strong>Langue</strong> : {{ book.language }}</p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <div id="borrowPopup" class="popup hidden">
+        <form id="borrow-form" method="POST">
+            <div class="first-line">
+                <label for="borrower"><strong>Emprunteur</strong> :</label>
+                <input type="text" name="borrower" id="borrower" required>
+            </div>
+            <div class="second-line">
+                <button type="submit" class="popup-button">Valider</button>
+                <button type="button" id="cancel-button" class="popup-button">Annuler</button>
+            </div>
+        </form>
+    </div>
+    <a href="javascript:void(0);" id="openBorrowPopup" class="borrow-link"
+        data-url="{% url 'borrow_book' book.id %}"
+        data-csrf="{{ csrf_token }}">Emprunter</a>
+    <a href="{% url 'book_update' book.id %}" class="mod-link">Modifier</a>
+    <a href="{% url 'delete_book' book.id %}" class="del-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Supprimer</a>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'scripts.js' %}" defer></script>
+{% endblock %}

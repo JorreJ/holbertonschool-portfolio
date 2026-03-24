@@ -1,77 +1,58 @@
+{% extends 'base.html' %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device_width, initial-scale=1.0">
-        <title>Le Phare</title>
-        <meta name="description" content="Library Management Software">
-        <link rel="icon" type="image/x-icon" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="icon" type="image/png" href="{% static 'lighthouse_icon_trans.png' %}">
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        <div class="page-container">
-            <header id="site-header">
-                <div class="header-content">
-                    <a href="{% url 'accueil' %}">
-                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="100" width="100">
-                        <h1>Le Phare</h1>
-                    </a>
-                </div>
-            </header>
-            <main>
-                <input type="checkbox" id="drawer-toggle" hidden>
-                <label for="drawer-toggle" class="drawer-button">Rechercher un livre</label>
-                <div class="drawer-menu" id="drawer">
-                    <button id="close-menu" class="close-button">&times;</button>
-                    <form id="search-form" method="GET">
-                        <div class="search-book">
-                            <table>
-                                <tr>
-                                    <td id="left-cell">
-                                        <label for="title">Titre :</label>
-                                        <input type="text" id="title" name="title" class="search-info">
-                                        <label for="author">Auteur :</label>
-                                        <input type="text" id="author" name="author" class="search-info">
-                                        <label for="ISBN">ISBN :</label>
-                                        <input type="text" id="ISBN" name="ISBN" class="search-info">
-                                        <label for="published">Parution :</label>
-                                        <input type="number" id="published" name="published" class="search-info">
-                                        <label for="location">Localisation :</label>
-                                        <input type="text" id="location" name="location" class="search-info">
-                                        <label for="status">Statut :</label>
-                                        <input type="text" id="status" name="status" class="search-info">
-                                    </td>
-                                    <td id="center-cell">
-                                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="200" width="200">
-                                        <button type="submit" class="search-button">Rechercher</button>
-                                    </td>
-                                    <td id="right-cell">
-                                        <label for="cote">Cote :</label>
-                                        <input type="text" id="cote" name="cote" class="search-info">
-                                        <label for="collection">Collection :</label>
-                                        <input type="text" id="collection" name="collection" class="search-info">
-                                        <label for="read_level">Niveau de lecture :</label>
-                                        <input type="text" id="read_level" name="read_level" class="search-info">
-                                        <label for="summary">Résumé :</label>
-                                        <input type="text" id="summary" name="summary" class="search-info">
-                                        <label for="language">Langue :</label>
-                                        <input type="text" id="language" name="language" class="search-info">
-                                        <label for="copy">Exemplaire :</label>
-                                        <input type="number" id="copy" name="copy" class="search-info">
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-                <div id="book-results">
-                    {% include "book_list.html" %}
-                </div>
-            </main>
-            <footer>&copy; 2025 Le Phare. Tous droits réservés.</footer>
-            <script src="{% static 'scripts.js' %}" defer></script>
+
+{% block content %}
+<input type="checkbox" id="drawer-toggle" hidden>
+<label for="drawer-toggle" class="drawer-button">Rechercher un livre</label>
+<div class="drawer-menu" id="drawer">
+    <button id="close-menu" class="close-button">&times;</button>
+    <form id="search-form" method="GET">
+        <div class="search-book">
+            <table>
+                <tr>
+                    <td id="left-cell">
+                        <label for="title">Titre :</label>
+                        <input type="text" id="title" name="title" class="search-info">
+                        <label for="author">Auteur :</label>
+                        <input type="text" id="author" name="author" class="search-info">
+                        <label for="ISBN">ISBN :</label>
+                        <input type="text" id="ISBN" name="ISBN" class="search-info">
+                        <label for="published">Parution :</label>
+                        <input type="number" id="published" name="published" class="search-info">
+                        <label for="location">Localisation :</label>
+                        <input type="text" id="location" name="location" class="search-info">
+                        <label for="status">Statut :</label>
+                        <input type="text" id="status" name="status" class="search-info">
+                    </td>
+                    <td id="center-cell">
+                        <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="200" width="200">
+                        <button type="submit" class="search-button">Rechercher</button>
+                    </td>
+                    <td id="right-cell">
+                        <label for="cote">Cote :</label>
+                        <input type="text" id="cote" name="cote" class="search-info">
+                        <label for="collection">Collection :</label>
+                        <input type="text" id="collection" name="collection" class="search-info">
+                        <label for="read_level">Niveau de lecture :</label>
+                        <input type="text" id="read_level" name="read_level" class="search-info">
+                        <label for="summary">Résumé :</label>
+                        <input type="text" id="summary" name="summary" class="search-info">
+                        <label for="language">Langue :</label>
+                        <input type="text" id="language" name="language" class="search-info">
+                        <label for="copy">Exemplaire :</label>
+                        <input type="number" id="copy" name="copy" class="search-info">
+                    </td>
+                </tr>
+            </table>
         </div>
-    </body>
-</html>
+    </form>
+</div>
+<div id="book-results">
+    {% include "book_list.html" %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'scripts.js' %}" defer></script>
+{% endblock %}
