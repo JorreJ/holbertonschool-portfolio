@@ -1,6 +1,5 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.html import escape
 from django.http import JsonResponse
 from django.contrib import messages
 from .models import Book, Borrowing
@@ -13,27 +12,14 @@ def accueil(request):
 
 def add_book(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        author = request.POST.get('author')
-        ISBN = request.POST.get('ISBN')
-        published = request.POST.get('published')
-        if published == '':
-            published = None
-        location = request.POST.get('location')
-        status = request.POST.get('status')
-        cote = request.POST.get('cote')
-        collection = request.POST.get('collection')
-        read_level = request.POST.get('read_level')
-        summary = request.POST.get('summary')
-        language = request.POST.get('language')
-        copy = request.POST.get('copy')
-        if copy == '':
-            copy = None
-
-        Book.objects.create(title=title, author=author, ISBN=ISBN, published=published, location=location, status=status,cote=cote, collection=collection, read_level=read_level, summary=summary, language=language, copy=copy)
-        messages.success(request, f'"{title}" a bien été enregistré.')
-        return render(request, 'add_book.html', {'clear_form': True})
-    return render(request, 'add_book.html')
+        form = BookForm(request.POST)
+        if form.is_valid():
+            new_book = form.save()
+            messages.success(request, f'"{new_book.title}" a bien été enregistré.')
+            return redirect('add_book')
+    else:
+        form = BookForm()
+    return render(request, 'add_book.html', {'form': form})
 
 def book_details(request, book_id):
     book = get_object_or_404(Book, id=book_id)
@@ -47,7 +33,7 @@ def search(request):
         'title': 'title__icontains',
         'author': 'author__icontains',
         'published': 'published',
-        'ISBN': 'ISBN',
+        'ISBN': 'ISBN__icontains',
         'location': 'location__icontains',
         'status': 'status__icontains',
         'cote': 'cote__icontains',
@@ -99,7 +85,7 @@ def borrow_book(request, book_id):
         borrower_name = data.get('borrower')
         book = get_object_or_404(Book, pk=book_id)
 
-        if book.status == "Emprunté":
+        if book.status != "Disponible":
             return JsonResponse({'message': 'Ce livre est indisponible pour le moment'}, status=400)
 
         if borrower_name:

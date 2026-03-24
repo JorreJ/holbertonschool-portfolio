@@ -10,45 +10,10 @@
     {% endfor %}
 </ul>
 {% endif %}
-<form method="POST">
-    {% csrf_token %}
-    <div class="new-book">
-        <table>
-            <tr>
-                <td id="left-cell">
-                    <label for="title">Titre :</label>
-                    <input type="text" id="title" name="title" class="new-info" required>
-                    <label for="author">Auteur :</label>
-                    <input type="text" id="author" name="author" class="new-info">
-                    <label for="ISBN">ISBN :</label>
-                    <input type="text" id="ISBN" name="ISBN" class="new-info" maxlength="13" minlength="10" required>
-                    <label for="published">Parution :</label>
-                    <input type="number" id="published" name="published" class="new-info">
-                    <label for="location">Localisation :</label>
-                    <input type="text" id="location" name="location" class="new-info">
-                    <label for="status">Statut :</label>
-                    <input type="text" id="status" name="status" class="new-info">
-                </td>
-                <td id="center-cell">
-                    <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="200" width="200">
-                    <button type="submit" class="add-button">Ajouter</button>
-                </td>
-                <td id="right-cell">
-                    <label for="cote">Cote :</label>
-                    <input type="text" id="cote" name="cote" class="new-info">
-                    <label for="collection">Collection :</label>
-                    <input type="text" id="collection" name="collection" class="new-info">
-                    <label for="read_level">Niveau de lecture :</label>
-                    <input type="text" id="read_level" name="read_level" class="new-info">
-                    <label for="summary">Résumé :</label>
-                    <input type="text" id="summary" name="summary" class="new-info">
-                    <label for="language">Langue :</label>
-                    <input type="text" id="language" name="language" class="new-info">
-                    <label for="copy">Exemplaire :</label>
-                    <input type="number" id="copy" name="copy" class="new-info">
-                </td>
-            </tr>
-        </table>
-    </div>
-</form>
+<div class="update-page">
+    <form method="POST">
+        {% csrf_token %}
+        {% include "book_form.html" with button_text="Ajouter" %}
+    </form>
+</div>
 {% endblock %}

@@ -6,9 +6,9 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = '__all__'
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'update-info'}),
+            'title': forms.TextInput(attrs={'class': 'update-info', 'required': True}),
             'author': forms.TextInput(attrs={'class': 'update-info'}),
-            'ISBN': forms.TextInput(attrs={'class': 'update-info'}),
+            'ISBN': forms.TextInput(attrs={'class': 'update-info', 'required': True, 'minlength': '10', 'maxlength': '13'}),
             'published': forms.NumberInput(attrs={'class': 'update-info'}),
             'edition': forms.TextInput(attrs={'class': 'update-info'}),
             #'category':

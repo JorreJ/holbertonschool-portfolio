@@ -12,7 +12,7 @@
                 {% if borrowing %}
                     <p class="detail-status"><strong>Emprunté par</strong> : {{ borrowing.borrower }}</p>
                 {% else %}
-                    <p class="detail-status"><strong>Disponible</strong></p>
+                    <p class="detail-status"><strong>{{ book.status }}</strong></p>
                 {% endif %}
                 {% if book.location %}
                 <p class="detail-location"><strong>Localisation</strong> : {{ book.location }}</p>
