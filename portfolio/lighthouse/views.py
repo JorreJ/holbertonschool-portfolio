@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import Book, Borrowing
 from .forms import BookForm
 from django.utils import timezone
+from .services import BookLookup
 
 # Create your views here.
 def accueil(request):
@@ -20,6 +21,15 @@ def add_book(request):
     else:
         form = BookForm()
     return render(request, 'add_book.html', {'form': form})
+
+def search_isbn(request):
+    isbn = request.GET.get("isbn")
+    if not isbn:
+        return JsonResponse({})
+    data = BookLookup.search(isbn)
+    if data is None:
+        return JsonResponse({})
+    return JsonResponse(data)
 
 def book_details(request, book_id):
     book = get_object_or_404(Book, id=book_id)

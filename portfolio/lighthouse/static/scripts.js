@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initSearchPage();
     initBookDetailsPage();
+    initAddBookPage();
 })
 
 /* Scripts for search.html */
@@ -78,4 +79,43 @@ function initBookDetailsPage() {
             });
         });
     }
+}
+
+function fillField(id, value) {
+    const field = document.getElementById(id);
+
+    if (field && value) {
+        field.value = value;
+    }
+}
+
+/* Script for add_book.html */
+function initAddBookPage() {
+    const isbnInput = document.getElementById('isbn-input');
+    if (!isbnInput) {
+        return;
+    }
+    isbnInput.addEventListener('change', function () {
+        const isbn = isbnInput.value.trim();
+        if (isbn.length < 10) {
+            return;
+        }
+
+        fetch(`/books/search-isbn/?isbn=${isbn}`)
+        .then(response => response.json())
+        .then(data => {
+
+            console.log("Données reçues :", data);
+
+            fillField('title-input', data.title);
+            fillField('author-input', data.author);
+            fillField('published-input', data.published);
+            fillField('edition-input', data.edition);
+            fillField('summary-input', data.summary);
+            fillField('language-input', data.language);
+        })
+        .catch(error => {
+            console.error("Erreur recherche ISBN :", error);
+        });
+    });
 }

@@ -9,7 +9,7 @@ class Genre(models.Model):
     name = models.CharField(max_length=200)
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, blank=True)
     author = models.CharField(max_length=200, blank=True)
     ISBN = models.CharField(max_length=13, validators=[MinLengthValidator(10)])
     published = models.IntegerField(null=True, blank=True)
@@ -24,6 +24,7 @@ class Book(models.Model):
     language = models.CharField(max_length=200, blank=True)
     copy = models.IntegerField(null=True, blank=True)
     genre = models.ManyToManyField(Genre, blank=True)
+    cover = models.URLField(max_length=200, blank=True)
 
 class Borrowing(models.Model):
     borrower = models.CharField(max_length=200)
