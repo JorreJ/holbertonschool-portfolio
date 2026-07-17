@@ -113,6 +113,7 @@ function initAddBookPage() {
             fillField('edition-input', data.edition);
             fillField('summary-input', data.summary);
             fillField('language-input', data.language);
+            fillField('cover-input', data.cover)
         })
         .catch(error => {
             console.error("Erreur recherche ISBN :", error);

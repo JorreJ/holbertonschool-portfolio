@@ -9,27 +9,30 @@
     <table class="book-details">
         <tr>
             <td class="status-info">
+                {% if book.cover %}
+                    <img src="{{ book.cover }}" alt="Couverture de {{ book.title }}" width="200">
+                {% endif %}
                 {% if borrowing %}
                     <p class="detail-status"><strong>Emprunté par</strong> : {{ borrowing.borrower }}</p>
                 {% else %}
                     <p class="detail-status"><strong>{{ book.status }}</strong></p>
                 {% endif %}
                 {% if book.location %}
-                <p class="detail-location"><strong>Localisation</strong> : {{ book.location }}</p>
+                    <p class="detail-location"><strong>Localisation</strong> : {{ book.location }}</p>
                 {% endif %}
                 {% if book.cote %}
-                <p class="detail-cote"><strong>Cote</strong> : {{ book.cote }}</p>
+                    <p class="detail-cote"><strong>Cote</strong> : {{ book.cote }}</p>
                 {% endif %}
             </td>
             <td class="general-info">
                 {% if book.author %}
-                <p class="detail-author"><strong>Auteur/Illustrateur</strong> : {{ book.author }}</p>
+                    <p class="detail-author"><strong>Auteur/Illustrateur</strong> : {{ book.author }}</p>
                 {% endif %}
                 {% if book.edition %}
-                <p class="detail-edition"><strong>Edition</strong> : {{ book.edition }}</p>
+                    <p class="detail-edition"><strong>Edition</strong> : {{ book.edition }}</p>
                 {% endif %}
                 {% if book.summary %}
-                <p class="detail-summary"><strong>Résumé</strong> : {{ book.summary }}</p>
+                    <p class="detail-summary"><strong>Résumé</strong> : {{ book.summary }}</p>
                 {% endif %}
                 {% if book.genres.all %}
                     {% if book.genres.count > 0 %}
@@ -54,19 +57,19 @@
             </td>
             <td class="technical-info">
                 {% if book.ISBN %}
-                <p class="detail-ISBN"><strong>ISBN</strong> : {{ book.ISBN }}</p>
+                    <p class="detail-ISBN"><strong>ISBN</strong> : {{ book.ISBN }}</p>
                 {% endif %}
                 {% if book.copy %}
-                <p class="detail-copy"><strong>Nombre d'exemplaires</strong> : {{ book.copy }}</p>
+                    <p class="detail-copy"><strong>Nombre d'exemplaires</strong> : {{ book.copy }}</p>
                 {% endif %}
                 {% if book.published %}
-                <p class="detail-published"><strong>Publié en</strong> : {{ book.published }}</p>
+                    <p class="detail-published"><strong>Publié en</strong> : {{ book.published }}</p>
                 {% endif %}
                 {% if book.read_level %}
-                <p class="detail-read_level"><strong>Recommandé pour</strong> : {{ book.read_level }}</p>
+                    <p class="detail-read_level"><strong>Recommandé pour</strong> : {{ book.read_level }}</p>
                 {% endif %}
                 {% if book.language %}
-                <p class="detail-language"><strong>Langue</strong> : {{ book.language }}</p>
+                    <p class="detail-language"><strong>Langue</strong> : {{ book.language }}</p>
                 {% endif %}
             </td>
         </tr>
