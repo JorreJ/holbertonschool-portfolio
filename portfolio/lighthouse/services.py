@@ -80,7 +80,7 @@ class BookLookup:
                 cover_id = data["covers"][0]
 
                 book["cover"] = (
-                    f"https://covers.openlibrary.org/id/{cover_id}-L.jpg"
+                    f"https://covers.openlibrary.org/b/isbn/{isbn}-L.jpg"
                 )
 
             return book

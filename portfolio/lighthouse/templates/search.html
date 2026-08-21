@@ -4,7 +4,7 @@
 
 {% block content %}
 <input type="checkbox" id="drawer-toggle" hidden>
-<label for="drawer-toggle" class="drawer-button">Rechercher un livre</label>
+<label for="drawer-toggle" id="drawer-button" class="drawer-button">Rechercher un livre</label>
 <div class="drawer-menu" id="drawer">
     <button id="close-menu" class="close-button">&times;</button>
     <form id="search-form" method="GET">
@@ -54,5 +54,5 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'scripts.js' %}" defer></script>
+<script src="{% static 'scripts.js' %}"></script>
 {% endblock %}

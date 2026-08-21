@@ -129,7 +129,6 @@ input:focus {
 
 /* Display of the drawer button (search book page) */
 .drawer-button {
-    display: block;
     position: fixed;
     top: 160px;
     left: 20px;
@@ -137,6 +136,8 @@ input:focus {
     text-align: center;
     font-size: 2em;
     padding: 10px;
+    z-index: 1000;
+    transition: top 0.25 ease;
 }
 
 /* Display of action buttons (book details page) */
@@ -144,10 +145,11 @@ input:focus {
     width: fit-content;
     font-size: 1em;
     padding: 10px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-.mod-link {
+/*.mod-link {
     position: absolute;
     bottom: 0;
     left: 47%;
@@ -166,6 +168,13 @@ input:focus {
     bottom: 0;
     left: 80%;
     right: 20%;
+}*/
+
+.detail-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 /* Display of the popup buttons (book details page) */
@@ -229,7 +238,7 @@ table {
 .drawer-menu {
     position: fixed;
     top: 0;
-    left: -950px;
+    left: -100vw;
     width: 50%;
     height: 100%;
     background-color: #8EC7DE;
@@ -339,13 +348,22 @@ table {
     padding-left: 20px;
 }
 
-/* Defines a border for summary element (book details page) */
+/* Defines a border and max height for summary element (book details page) */
 .detail-summary {
+    max-height: 47vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     border: 1px solid #2C5F79;
     padding: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.detail-summary::-webkit-scrollbar {
+    display: none;
 }
 
 /* Style of the popup */

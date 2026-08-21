@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initSearchPage();
     initBookDetailsPage();
     initAddBookPage();
-})
+    initTomSelect();
+});
 
 /* Scripts for search.html */
 function initSearchPage() {
@@ -11,11 +12,20 @@ function initSearchPage() {
         const drawer = document.getElementById('drawer');
         const closeButton = document.getElementById('close-menu');
         const drawerToggle = document.getElementById('drawer-toggle');
+        const drawerButton = document.getElementById('drawer-button')
 
         function adjustDrawerPosition() {
             const headerHeight = header.offsetHeight;
-            drawer.style.top = `${headerHeight}px`;
-            drawer.style.height = `calc(100% - ${headerHeight}px)`;
+
+            if (window.scrollY < headerHeight) {
+                drawer.style.top = `${headerHeight}px`;
+                drawer.style.height = `calc(100vh - ${headerHeight}px)`;
+                drawerButton.style.top = `${headerHeight + 10}px`;
+            } else {
+                drawer.style.top = "0px";
+                drawer.style.height = `calc(100vh)`;
+                drawerButton.style.top = "10px";
+            }
         }
 
         closeButton.addEventListener('click', () => {
@@ -24,6 +34,7 @@ function initSearchPage() {
 
         window.addEventListener('load', adjustDrawerPosition);
         window.addEventListener('resize', adjustDrawerPosition);
+        window.addEventListener('scroll', adjustDrawerPosition);
 
         document.getElementById('search-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -119,4 +130,60 @@ function initAddBookPage() {
             console.error("Erreur recherche ISBN :", error);
         });
     });
+}
+
+function initTomSelect(){
+    const category = document.getElementById("category-input");
+    if (!category) {
+        return;
+    }
+
+    new TomSelect(category, {
+        plugins: ['remove_button'],
+        maxItems: null,
+        persist: false,
+        createOnBlur: true,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        },
+        create: function(input, callback) {
+            fetch("/categories/create/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+
+                body: new URLSearchParams({
+                    name: input
+                })
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                callback({
+                    value: data.id,
+                    text: data.name
+                });
+            })
+
+            .catch(() => callback());
+        }
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

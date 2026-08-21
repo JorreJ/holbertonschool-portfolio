@@ -2,7 +2,8 @@ import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
-from .models import Book, Borrowing
+from django.views.decorators.http import require_POST
+from .models import Book, Borrowing, Category
 from .forms import BookForm
 from django.utils import timezone
 from .services import BookLookup
@@ -30,6 +31,22 @@ def search_isbn(request):
     if data is None:
         return JsonResponse({})
     return JsonResponse(data)
+
+@require_POST
+def create_category(request):
+    name = request.POST.get("name", "").strip()
+    if not name:
+        return JsonResponse(
+            {"error": "Nom vide"},
+            status=400
+        )
+    category, created = Category.objects.get_or_create(name=name)
+
+    return JsonResponse({
+        "id": category.id,
+        "name": category.name,
+        "created": created
+    })
 
 def book_details(request, book_id):
     book = get_object_or_404(Book, id=book_id)

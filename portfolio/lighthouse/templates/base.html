@@ -9,10 +9,11 @@
         <link rel="icon" type="image/x-icon" href="{% static 'lighthouse_icon_trans.png' %}">
         <link rel="icon" type="image/png" href="{% static 'lighthouse_icon_trans.png' %}">
         <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
     </head>
     <body>
         <div class="page-container">
-            <header>
+            <header id="site-header">
                 <div class="header-content">
                     <a href="{% url 'accueil' %}">
                         <img class="logo" src="{% static 'lighthouse_icon_trans.png' %}" height="100" width="100">
@@ -33,6 +34,7 @@
                 {% endblock %}
             </main>
             <footer>&copy; 2025 Le Phare. Tous droits réservés.</footer>
+            <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
             {% block script %}
             {% endblock %}
         </div>

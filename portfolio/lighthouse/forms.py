@@ -12,7 +12,7 @@ class BookForm(forms.ModelForm):
             'published': forms.NumberInput(attrs={'class': 'update-info', 'id': 'published-input'}),
             'edition': forms.TextInput(attrs={'class': 'update-info', 'id': 'edition-input'}),
             'cover': forms.URLInput(attrs={'class': 'update-info', 'id': 'cover-input'}),
-            #'category':
+            'category': forms.SelectMultiple(attrs={'class': 'update-info', 'id': 'category-input'}),
             'location': forms.TextInput(attrs={'class': 'update-info', 'id': 'location-input'}),
             'status': forms.TextInput(attrs={'class': 'update-info', 'id': 'status-input'}),
             'cote': forms.TextInput(attrs={'class': 'update-info', 'id': 'cote-input'}),

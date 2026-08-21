@@ -44,15 +44,13 @@
                     </p>
                     {% endif %}
                 {% endif %}
-                {% if book.categories.all %}
-                    {% if book.categories.count > 0 %}
-                    <p class="detail-category">
-                        <strong>Categories</strong> : 
-                        {% for category in book.categories.all %}
-                            {{ category.name }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                    {% endif %}
+                {% if book.category.count > 0 %}
+                <p class="detail-category">
+                    <strong>Thèmes</strong> : 
+                    {% for category in book.category.all %}
+                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
                 {% endif %}
             </td>
             <td class="technical-info">
@@ -86,14 +84,16 @@
             </div>
         </form>
     </div>
-    <a href="javascript:void(0);" id="openBorrowPopup" class="borrow-link"
-        data-url="{% url 'borrow_book' book.id %}"
-        data-csrf="{{ csrf_token }}">Emprunter</a>
-    <a href="{% url 'book_update' book.id %}" class="mod-link">Modifier</a>
-    <a href="{% url 'delete_book' book.id %}" class="del-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Supprimer</a>
+    <div class="detail-button">
+        <a href="javascript:void(0);" id="openBorrowPopup" class="borrow-link"
+            data-url="{% url 'borrow_book' book.id %}"
+            data-csrf="{{ csrf_token }}">Emprunter</a>
+        <a href="{% url 'book_update' book.id %}" class="mod-link">Modifier</a>
+        <a href="{% url 'delete_book' book.id %}" class="del-link" onclick="return confirm('Supprimer {{ book.title }} ?')">Supprimer</a>
+    </div>
 </div>
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'scripts.js' %}" defer></script>
+<script src="{% static 'scripts.js' %}"></script>
 {% endblock %}
